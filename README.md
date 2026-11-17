@@ -28,7 +28,7 @@ Every piece in here started as a real problem: a rule that kept getting skipped,
 
 ## What's inside
 
-**`plugins/`** — the shelf. Each tool is a Claude Code plugin in its own folder, and `.claude-plugin/marketplace.json` lists them. Right now there are three: two single skills, each with a `SKILL.md`, and the documentation pipeline, a set of 16 skills that defines one repeatable, well-scoped task for an AI agent: `docs-readability-check` (a readability pass on documentation) and `plan-this` (capture an in-progress plan so it survives a context reset). Each has a README.
+**`plugins/`** — the shelf. Each tool is a Claude Code plugin in its own folder, and `.claude-plugin/marketplace.json` lists them. Right now there are three. `docs-readability-check` is a readability pass on documentation. `plan-this` captures an in-progress plan so it survives a context reset. `docs-pipeline` is a set of 16 skills that takes a documentation change from first request to publish. Each has a README.
 
 **`pipelines/`** — multi-stage systems, not single tasks. The documentation pipeline, the anchor piece, now lives on the shelf in `plugins/docs-pipeline/` because it installs as a plugin. It is a documentation-engineering pipeline: a chain of skills that takes a raw content change through structure review, voice/style checks, grammar, link and visual verification, and a subject-matter-expert review gate before anything publishes. See its own README for current state. The second pipeline, still in this folder, is [`pipelines/job-assessment/`](pipelines/job-assessment/), which scores a job posting against written criteria.
 
