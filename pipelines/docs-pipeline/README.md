@@ -20,7 +20,7 @@ Each skill is a markdown file that Claude Code loads when you run the matching `
 | `docs-style-check-structure.md` | `/docs-style-check-structure` | 3a | Checks required sections, headings, and Diataxis structural rules |
 | `docs-style-check-voice.md` | `/docs-style-check-voice` | 3b | Applies general style guide voice, tone, list formatting, and terminology rules |
 | `docs-style-check-human.md` | `/docs-style-check-human` | 3c | Removes AI writing patterns (em dashes, filler phrases, uniform sentences) |
-| `../../skills/docs-readability-check/SKILL.md` | `/docs-readability-check` | 3d | Estimates reading grade level, finds dense sentence patterns, and rewrites them to the target level for the doc type |
+| `../../plugins/docs-readability-check/skills/docs-readability-check/SKILL.md` | `/docs-readability-check` | 3d | Estimates reading grade level, finds dense sentence patterns, and rewrites them to the target level for the doc type |
 | `docs-grammar-spelling.md` | `/docs-grammar-spelling` | 3e | Grammar, spelling, and domain terminology check |
 | `docs-visuals-review.md` | `/docs-visuals-review` | 4a | Recommends diagrams and visual aids; Mermaid-first |
 | `docs-links-review.md` | `/docs-links-review` | 4b | Finds cross-link candidates against the full docs corpus |

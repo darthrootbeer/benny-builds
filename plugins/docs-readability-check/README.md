@@ -28,12 +28,19 @@ A report in `_process/style-audit/` named `readability-audit-{folder-name}.md`, 
 
 ## Install
 
-Claude Code loads a skill from `<skills folder>/<name>/SKILL.md`. From the root of this repo:
+From the shelf, in Claude Code:
+
+```text
+/plugin marketplace add darthrootbeer/context-engineering-toolkit
+/plugin install docs-readability-check@benny-builds
+```
+
+Or by hand: Claude Code loads a skill from `<skills folder>/<name>/SKILL.md`. From the root of this repo:
 
 ```bash
 SKILLS_DIR="$HOME/.claude/skills"   # use ./.claude/skills to install for one project only
 mkdir -p "$SKILLS_DIR/docs-readability-check"
-cp skills/docs-readability-check/SKILL.md "$SKILLS_DIR/docs-readability-check/SKILL.md"
+cp plugins/docs-readability-check/skills/docs-readability-check/SKILL.md "$SKILLS_DIR/docs-readability-check/SKILL.md"
 ```
 
 Start a new Claude Code session and type `/docs-read`. The command should appear in the list.

@@ -73,7 +73,7 @@ done
 
 # the readability stage (3d) lives in the repo's skills/ folder
 mkdir -p "$SKILLS_DIR/docs-readability-check"
-cp ../../skills/docs-readability-check/SKILL.md "$SKILLS_DIR/docs-readability-check/SKILL.md"
+cp ../../plugins/docs-readability-check/skills/docs-readability-check/SKILL.md "$SKILLS_DIR/docs-readability-check/SKILL.md"
 ```
 
 This installs 17 skills: the 16 `docs-*.md` files here plus `docs-readability-check`. Run it again any time you edit a file. Keep your clone where it is: the skills read `_knowledge/` and `workspace-gitignore.template` from `PIPELINE_DIR`.

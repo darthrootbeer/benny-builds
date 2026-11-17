@@ -162,7 +162,7 @@ Reads the style guide from `_knowledge/style-guides/general/style-guide_general.
 Removes AI writing patterns: em dashes, banned filler phrases (`it's worth noting`, `notably`), uniform sentence length, bold-label lists, corporate padding.
 
 **3d — Readability (`/docs-readability-check`)**
-Estimates the reading grade level of each doc and finds the sentence patterns that make technical writing feel dense: stacked clauses, too many facts in one sentence, jargon followed by a clause that explains it, and wall paragraphs. Rewrites them toward a target level that depends on the doc type, without changing vocabulary or voice. Never touches tables, code blocks, or callouts. Paragraphs it cannot safely rewrite are flagged for a person. The skill lives in this repo at [`skills/docs-readability-check`](../../skills/docs-readability-check/SKILL.md).
+Estimates the reading grade level of each doc and finds the sentence patterns that make technical writing feel dense: stacked clauses, too many facts in one sentence, jargon followed by a clause that explains it, and wall paragraphs. Rewrites them toward a target level that depends on the doc type, without changing vocabulary or voice. Never touches tables, code blocks, or callouts. Paragraphs it cannot safely rewrite are flagged for a person. The skill lives in this repo at [`plugins/docs-readability-check`](../../plugins/docs-readability-check/skills/docs-readability-check/SKILL.md).
 
 **3e — Grammar & Spelling (`/docs-grammar-spelling`)**
 Reads the glossary from `_knowledge/glossary.yaml`. Populate with your domain terminology. Checks spelling, grammar, punctuation, and terminology consistency. Flags anything that needs a human decision rather than silently fixing it.

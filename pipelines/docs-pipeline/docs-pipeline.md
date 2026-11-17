@@ -258,7 +258,7 @@ Proceed to readability check (3d)?
 
 ### 3d. Readability check (sentence complexity)
 
-**Follow the complete `/docs-readability-check` process.** The skill file ships in this repo at `skills/docs-readability-check/SKILL.md`. Read it and execute all steps against the output docs.
+**Follow the complete `/docs-readability-check` process.** The skill file ships in this repo at `plugins/docs-readability-check/skills/docs-readability-check/SKILL.md`. Read it and execute all steps against the output docs.
 
 Present summary:
 ```
