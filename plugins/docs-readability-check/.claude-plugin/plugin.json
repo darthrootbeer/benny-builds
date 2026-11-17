@@ -1,0 +1,7 @@
+{
+  "name": "docs-readability-check",
+  "version": "0.1.0",
+  "description": "A readability pass on documentation: plain words, short sentences, clear structure.",
+  "author": { "name": "Ben Goddard" },
+  "license": "MIT"
+}

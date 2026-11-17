@@ -1,0 +1,7 @@
+{
+  "name": "plan-this",
+  "version": "0.1.0",
+  "description": "Capture an in-progress plan as a file so it survives a context reset.",
+  "author": { "name": "Ben Goddard" },
+  "license": "MIT"
+}

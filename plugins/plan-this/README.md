@@ -38,4 +38,11 @@ Plan saved: plan-NNN — [title]
 
 ## Install
 
-Copy the `plan-this/` folder into your project's Claude Code skills directory (commonly `.claude/skills/` or symlinked from a shared skills repo), then invoke `/plan-this` in any Claude Code session.
+From the shelf, in Claude Code:
+
+```text
+/plugin marketplace add darthrootbeer/context-engineering-toolkit
+/plugin install plan-this@benny-builds
+```
+
+Or by hand: copy the `plan-this/` folder into your project's Claude Code skills directory (commonly `.claude/skills/` or symlinked from a shared skills repo), then invoke `/plan-this` in any Claude Code session.

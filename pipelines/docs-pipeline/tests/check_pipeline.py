@@ -22,14 +22,14 @@ import sys
 
 HERE = pathlib.Path(__file__).resolve().parent.parent
 REPO = HERE.parent.parent
-READABILITY = REPO / "skills" / "docs-readability-check"
+READABILITY = REPO / "plugins" / "docs-readability-check"
 
 # Words that must not appear anywhere in the shipped folders.
 BANNED = [r"TOOLBOX", r"/Users/", r"~/Downloads", r"\.cursor", r"example-docs-repo", r"_extras/style-guides"]
 
 problems = []
 
-skill_files = sorted(HERE.glob("docs-*.md")) + [READABILITY / "SKILL.md"]
+skill_files = sorted(HERE.glob("docs-*.md")) + [READABILITY / "skills" / "docs-readability-check" / "SKILL.md"]
 TESTS = HERE / "tests"
 all_files = [p for p in list(HERE.rglob("*")) + list(READABILITY.rglob("*"))
              if p.is_file() and TESTS not in p.parents and p.suffix in {".md", ".yaml", ".template"}]
@@ -66,7 +66,7 @@ for rel in ["sample/acme-orders-cancellations.md", "workspace-gitignore.template
     if not (HERE / rel).is_file():
         problems.append(f"missing shipped file: {rel}")
 if not (READABILITY / "README.md").is_file():
-    problems.append("missing skills/docs-readability-check/README.md")
+    problems.append("missing plugins/docs-readability-check/README.md")
 
 # 5. orchestrator names every stage skill
 ORCH = HERE / "docs-pipeline.md"
