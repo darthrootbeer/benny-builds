@@ -43,7 +43,7 @@ Three more placeholders are optional. Leave them as they are unless you want the
 |-------------|-----------|-----------------------|
 | `{SHARED_CONFIG_DIR}` | A folder of your own shared tools (for example a JSON schema or a diagram generator) | The steps that need it are skipped |
 | `{NOTES_DIR}` | A notes folder (for example an Obsidian vault) where Stage 0 writes a project note | No project note is written |
-| `{YOUR_PIPELINE_DIR}` | The path of this folder | You do not set this by hand: the install loop in section 3 fills it in |
+| the plugin folder path | `${CLAUDE_PLUGIN_ROOT}` in `docs-workspace-setup` | Claude Code fills it in for a plugin install. The install loop in section 3B fills it in for a clone. |
 
 **One-liner to find all remaining `{YOUR_` placeholders**, run from inside this folder:
 
@@ -51,32 +51,41 @@ Three more placeholders are optional. Leave them as they are unless you want the
 grep -rl '{YOUR_' . --include='*.md'
 ```
 
-`{YOUR_PIPELINE_DIR}` will still show up in the source files. That is expected: it is filled in on the installed copies, not here.
+The folder path is not a placeholder you set: `${CLAUDE_PLUGIN_ROOT}` is filled in at install time.
 
 ---
 
 ## 3. Install the skills
 
-Claude Code loads a skill from `<skills folder>/<name>/SKILL.md`. The files in this folder are flat (`docs-pipeline.md`, `docs-sme-review.md`, ...), so copying the folder as it is will not register them. This loop makes one folder per skill and fills in `{YOUR_PIPELINE_DIR}` on the way.
+There are two ways in. Pick the one that matches what you want to do.
 
-Run it from inside this folder (`pipelines/docs-pipeline/` in your clone of the repo):
+**A. Try it (smoke test, no placeholders).** Install it as a plugin. In Claude Code:
+
+```text
+/plugin marketplace add darthrootbeer/context-engineering-toolkit
+/plugin install docs-pipeline@benny-builds
+```
+
+This also installs `docs-readability-check`, which the pipeline needs. The plugin copy is read-only, so use it for the smoke test in section 4 and nothing else.
+
+**B. Use it on real docs (you edit the placeholders).** Work from a clone of the repo. Claude Code loads a skill from `<skills folder>/<name>/SKILL.md`, so this loop copies each stage into your skills folder and points it at your clone. Run it from inside this folder (`plugins/docs-pipeline/` in your clone), after you replace the placeholders in section 2:
 
 ```bash
 PIPELINE_DIR="$PWD"
 SKILLS_DIR="$HOME/.claude/skills"   # use ./.claude/skills instead to install for one project only
 
-for f in docs-*.md; do
-  name="${f%.md}"
+for d in skills/docs-*/; do
+  name="$(basename "$d")"
   mkdir -p "$SKILLS_DIR/$name"
-  sed "s|{YOUR_PIPELINE_DIR}|$PIPELINE_DIR|g" "$f" > "$SKILLS_DIR/$name/SKILL.md"
+  sed 's|${CLAUDE_PLUGIN_ROOT}|'"$PIPELINE_DIR"'|g' "$d/SKILL.md" > "$SKILLS_DIR/$name/SKILL.md"
 done
 
-# the readability stage (3d) lives in the repo's skills/ folder
+# the readability stage (3d) is its own plugin folder
 mkdir -p "$SKILLS_DIR/docs-readability-check"
-cp ../../plugins/docs-readability-check/skills/docs-readability-check/SKILL.md "$SKILLS_DIR/docs-readability-check/SKILL.md"
+cp ../docs-readability-check/skills/docs-readability-check/SKILL.md "$SKILLS_DIR/docs-readability-check/SKILL.md"
 ```
 
-This installs 17 skills: the 16 `docs-*.md` files here plus `docs-readability-check`. Run it again any time you edit a file. Keep your clone where it is: the skills read `_knowledge/` and `workspace-gitignore.template` from `PIPELINE_DIR`.
+This installs 17 skills: the 16 stages in `skills/` plus `docs-readability-check`. Run it again any time you edit a file. Keep your clone where it is: the skills read `_knowledge/` and `workspace-gitignore.template` from `PIPELINE_DIR`.
 
 **Check that they registered.** Start a new Claude Code session and type `/docs-`. The list should show all 17 names. Or run this from the shell and count the lines (it should print 17):
 
@@ -92,7 +101,7 @@ If the count is lower, the loop wrote to a different folder than the one Claude 
 
 The starter `_knowledge/product-kb/index.md` ships with an `extracted:` date. Once that date is more than 90 days old, Stage 4c reports a staleness warning on the starter data. Update the date to today when you replace the starter KB (section 5).
 
-First, an offline check that needs no model. From the root of your clone, run `python3 pipelines/docs-pipeline/tests/check_pipeline.py`. It confirms that every knowledge file the skills name exists and that the folder holds no private paths. It should print `check_pipeline: clean`.
+First, an offline check that needs no model. From the root of your clone, run `python3 plugins/docs-pipeline/tests/check_pipeline.py`. It confirms that every knowledge file the skills name exists and that the folder holds no private paths. It should print `check_pipeline: clean`.
 
 Then the real test. This runs the pipeline on a short sample doc that ships in this folder (`sample/acme-orders-cancellations.md`, a made-up doc about a made-up product). It stops before anything is published and needs no placeholders. Run these in Claude Code:
 
@@ -294,7 +303,7 @@ When you update any `product-kb/` file, update the `extracted:` date in `product
 | Error | Cause | Fix |
 |-------|-------|-----|
 | `Style guide not found at _knowledge/style-guides/general/style-guide_general.md` | You are not running from inside a workspace, or the workspace has no `_knowledge/` copy | Run from the workspace folder, or copy `_knowledge/` into it. Check the `STYLE_GUIDE` constant in `docs-style-check-voice.md` |
-| `Glossary not found at _knowledge/glossary.yaml` | File missing or path wrong | Check `GLOSSARY` constant in `docs-grammar-spelling.md` |
+| `Glossary not found at _knowledge/glossary.yaml` | File missing or path wrong | Check `GLOSSARY` constant in `skills/docs-grammar-spelling/SKILL.md` |
 | `Product KB not found at _knowledge/product-kb/` | You are not running from inside a workspace, or the workspace has no `_knowledge/` copy | Run from the workspace folder, or copy `_knowledge/` into it |
 | `PIPELINE_DIR is not set` | The skills were copied without the install loop | Re-run the loop in section 3 |
 | `Failed to clone docs repo` | `gh` not authenticated or repo name wrong | Run `gh auth login`; check `{YOUR_ORG}/{YOUR_DOCS_REPO}` |

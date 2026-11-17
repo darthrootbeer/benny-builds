@@ -12,7 +12,7 @@ Commit under test: `e035975`.
 $ git clone -b fix/docs-pipeline-runnable https://github.com/darthrootbeer/context-engineering-toolkit.git repo
 commit e035975 docs(docs-pipeline): add saved prompt runs, offline check and readability skill readme
 
-$ python3 pipelines/docs-pipeline/tests/check_pipeline.py
+$ python3 plugins/docs-pipeline/tests/check_pipeline.py
 check_pipeline: clean (17 skill files, 50 files scanned)
 exit=0
 
@@ -36,7 +36,7 @@ Done.
     - .gitignore
 
   Knowledge files:
-    - _knowledge/      (copied from /tmp/dpfix-proof3/repo/pipelines/docs-pipeline)
+    - _knowledge/      (copied from /tmp/dpfix-proof3/repo/plugins/docs-pipeline)
 
   Directories:
     - docs/input/

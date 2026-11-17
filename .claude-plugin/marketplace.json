@@ -1,9 +1,26 @@
 {
   "name": "benny-builds",
-  "owner": { "name": "Ben Goddard" },
-  "metadata": { "description": "Claude Code tools built by directing Claude Code every day, then checked with tests." },
+  "owner": {
+    "name": "Ben Goddard"
+  },
+  "metadata": {
+    "description": "Claude Code tools built by directing Claude Code every day, then checked with tests."
+  },
   "plugins": [
-    { "name": "plan-this", "source": "./plugins/plan-this", "description": "Capture an in-progress plan so it survives a context reset." },
-    { "name": "docs-readability-check", "source": "./plugins/docs-readability-check", "description": "A readability pass on documentation." }
+    {
+      "name": "docs-pipeline",
+      "source": "./plugins/docs-pipeline",
+      "description": "A chain of skills that takes a documentation change from first request to publish, with a gate between every stage."
+    },
+    {
+      "name": "plan-this",
+      "source": "./plugins/plan-this",
+      "description": "Capture an in-progress plan so it survives a context reset."
+    },
+    {
+      "name": "docs-readability-check",
+      "source": "./plugins/docs-readability-check",
+      "description": "A readability pass on documentation."
+    }
   ]
 }

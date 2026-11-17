@@ -2,7 +2,7 @@
 
 This folder is the second half of the job assessment system. It takes one job posting and the person's own `career-profile.yaml` and gives a plain verdict: **Apply**, **Apply with reservations**, or **Skip**. The first half, `intake/`, builds the profile.
 
-The docs in this folder follow the style guides and prompt-block standard of [`pipelines/docs-pipeline`](../../docs-pipeline/).
+The docs in this folder follow the style guides and prompt-block standard of [`plugins/docs-pipeline`](../../../plugins/docs-pipeline/).
 
 ## What it is
 

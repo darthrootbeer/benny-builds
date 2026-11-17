@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Offline check that the docs-pipeline folder is self-contained.
 
-Run from anywhere:  python3 pipelines/docs-pipeline/tests/check_pipeline.py
+Run from anywhere:  python3 plugins/docs-pipeline/tests/check_pipeline.py
 
 It needs no model and no network. It checks six things:
 1. Every `./_knowledge/...` path a skill file names exists in this folder.
@@ -29,7 +29,7 @@ BANNED = [r"TOOLBOX", r"/Users/", r"~/Downloads", r"\.cursor", r"example-docs-re
 
 problems = []
 
-skill_files = sorted(HERE.glob("docs-*.md")) + [READABILITY / "skills" / "docs-readability-check" / "SKILL.md"]
+skill_files = sorted(HERE.glob("skills/docs-*/SKILL.md")) + [READABILITY / "skills" / "docs-readability-check" / "SKILL.md"]
 TESTS = HERE / "tests"
 all_files = [p for p in list(HERE.rglob("*")) + list(READABILITY.rglob("*"))
              if p.is_file() and TESTS not in p.parents and p.suffix in {".md", ".yaml", ".template"}]
@@ -39,15 +39,15 @@ for f in skill_files:
     for m in re.finditer(r"\./_knowledge/[A-Za-z0-9_./-]+", f.read_text(encoding="utf-8")):
         target = m.group(0).rstrip(".")
         if not (HERE / target[2:]).exists():
-            problems.append(f"{f.name}: names {target}, which does not exist in this folder")
+            problems.append(f"{f.parent.name}: names {target}, which does not exist in this folder")
 
 # 2. frontmatter names match file names
 for f in skill_files:
     text = f.read_text(encoding="utf-8")
     m = re.match(r"---\nname: (\S+)\n", text)
-    expected = f.stem if f.name != "SKILL.md" else "docs-readability-check"
+    expected = f.parent.name
     if not m or m.group(1) != expected:
-        problems.append(f"{f.name}: frontmatter name is not {expected}")
+        problems.append(f"{f.parent.name}: frontmatter name is not {expected}")
 
 # 3. banned strings
 for f in all_files:
@@ -69,12 +69,12 @@ if not (READABILITY / "README.md").is_file():
     problems.append("missing plugins/docs-readability-check/README.md")
 
 # 5. orchestrator names every stage skill
-ORCH = HERE / "docs-pipeline.md"
+ORCH = HERE / "skills" / "docs-pipeline" / "SKILL.md"
 orch_text = ORCH.read_text(encoding="utf-8")
 for f in skill_files:
-    if f.name in {"docs-pipeline.md", "docs-workspace-setup.md"}:
+    name = f.parent.name
+    if name in {"docs-pipeline", "docs-workspace-setup"}:
         continue
-    name = "docs-readability-check" if f.name == "SKILL.md" else f.stem
     if f"/{name}" not in orch_text:
         problems.append(f"docs-pipeline.md: never calls /{name}")
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Run the three "Prompt for your AI model" prompts of each pattern doc on Sonnet and Haiku.
 
-Same method as pipelines/docs-pipeline/tests/prompt-runs: `claude -p` with no tools, no
+Same method as plugins/docs-pipeline/tests/prompt-runs: `claude -p` with no tools, no
 project instructions and no automatic memory, the doc pasted where the prompt says [PASTE FILE], the other bracketed
 inputs replaced with made-up samples. Writes one record per doc, prompt and model into
 prompt-runs/. Needs the `claude` command line tool; the normal test suite does not run this.

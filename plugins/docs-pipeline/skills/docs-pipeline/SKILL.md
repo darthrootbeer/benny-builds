@@ -114,7 +114,7 @@ If both exist:
 
 ### 1b. Run the audit
 
-**Follow the complete `/docs-diataxis-audit` process** (`docs-diataxis-audit.md`). Read that skill file and execute all steps. Do not abbreviate or skip steps.
+**Follow the complete `/docs-diataxis-audit` process** (`skills/docs-diataxis-audit/SKILL.md`). Read that skill file and execute all steps. Do not abbreviate or skip steps.
 
 The audit skill produces two mandatory outputs and one optional output. The report and the mapping must exist before Stage 1 is complete:
 
@@ -209,7 +209,7 @@ Run three passes sequentially on the output docs (or the single doc if no split 
 
 ### 3a. Structure check
 
-**Follow the complete `/docs-style-check-structure` process** (`docs-style-check-structure.md`). Read that skill file and execute all steps against the output docs.
+**Follow the complete `/docs-style-check-structure` process** (`skills/docs-style-check-structure/SKILL.md`). Read that skill file and execute all steps against the output docs.
 
 Present summary:
 ```
@@ -226,7 +226,7 @@ Proceed to voice check (3b)?
 
 ### 3b. Voice check
 
-**Follow the complete `/docs-style-check-voice` process** (`docs-style-check-voice.md`). Read that skill file and execute all steps against the output docs.
+**Follow the complete `/docs-style-check-voice` process** (`skills/docs-style-check-voice/SKILL.md`). Read that skill file and execute all steps against the output docs.
 
 Present summary:
 ```
@@ -242,7 +242,7 @@ Proceed to human check (3c)?
 
 ### 3c. Human check (de-AI)
 
-**Follow the complete `/docs-style-check-human` process** (`docs-style-check-human.md`). Read that skill file and execute all steps against the output docs.
+**Follow the complete `/docs-style-check-human` process** (`skills/docs-style-check-human/SKILL.md`). Read that skill file and execute all steps against the output docs.
 
 Present summary:
 ```
@@ -275,7 +275,7 @@ Proceed to proofread check (3e)?
 
 ### 3e. Proofread check (grammar, spelling, terminology)
 
-**Follow the complete `/docs-grammar-spelling` process** (`docs-grammar-spelling.md`). Read that skill file and execute all steps against the output docs.
+**Follow the complete `/docs-grammar-spelling` process** (`skills/docs-grammar-spelling/SKILL.md`). Read that skill file and execute all steps against the output docs.
 
 Present summary:
 ```
@@ -302,7 +302,7 @@ Pre-publish quality checks. These produce recommendations, not edits.
 
 ### 4a. Visuals review
 
-**Follow the complete `/docs-visuals-review` process** (`docs-visuals-review.md`). Read that skill file and execute all steps against the output docs folder.
+**Follow the complete `/docs-visuals-review` process** (`skills/docs-visuals-review/SKILL.md`). Read that skill file and execute all steps against the output docs folder.
 
 Present recommendations (do not auto-create diagrams):
 ```
@@ -322,7 +322,7 @@ Proceed to links review (4b)?
 
 ### 4b. Links review
 
-**Follow the complete `/docs-links-review` process** (`docs-links-review.md`). Read that skill file and execute all steps against the output docs folder.
+**Follow the complete `/docs-links-review` process** (`skills/docs-links-review/SKILL.md`). Read that skill file and execute all steps against the output docs folder.
 
 Present candidates:
 ```
@@ -339,7 +339,7 @@ Proceed to SME review (4c)?
 
 ### 4c. SME review
 
-**Follow the complete `/docs-sme-review` process** (`docs-sme-review.md`). Read that skill file and execute all steps against the output docs folder.
+**Follow the complete `/docs-sme-review` process** (`skills/docs-sme-review/SKILL.md`). Read that skill file and execute all steps against the output docs folder.
 
 Present findings:
 ```
@@ -361,7 +361,7 @@ Proceed to changes summary (4d)?
 
 ### 4d. Changes summary
 
-**Follow the complete `/docs-changes-list` process** (`docs-changes-list.md`). Read that skill file and execute all steps. It reads the original doc, output docs, audit report, and visual audit to auto-fill all sections and writes `editorial-changes.md` to the `_process/` directory.
+**Follow the complete `/docs-changes-list` process** (`skills/docs-changes-list/SKILL.md`). Read that skill file and execute all steps. It reads the original doc, output docs, audit report, and visual audit to auto-fill all sections and writes `editorial-changes.md` to the `_process/` directory.
 
 ```
 ### Stage 4d: Changes summary written
@@ -379,7 +379,7 @@ Proceed to Stage 5?
 
 **Goal:** Resolve every open recommendation before publishing. Nothing goes to Stage 6 with unresolved items.
 
-**Follow the complete `/docs-decision-checkpoint` process** (`docs-decision-checkpoint.md`). Read that skill file and execute all steps against the output docs folder.
+**Follow the complete `/docs-decision-checkpoint` process** (`skills/docs-decision-checkpoint/SKILL.md`). Read that skill file and execute all steps against the output docs folder.
 
 The skill collects all unresolved flags from the style audit and all recommendations from the reviews (visuals, links), writes a `recommendations.md` document to `_process/`, and walks the user through apply/skip/defer decisions for each item.
 
