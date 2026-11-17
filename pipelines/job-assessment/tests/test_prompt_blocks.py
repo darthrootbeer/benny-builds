@@ -153,6 +153,6 @@ def test_readme_opens_with_what_it_is_and_a_quickstart():
     text = read("README.md")
     first_screen = "\n".join(text.splitlines()[:12])
     assert "**What it is.**" in first_screen
-    assert "../docs-pipeline/" in first_screen
+    assert "../../plugins/docs-pipeline/" in first_screen
     headings = re.findall(r"^## (.+)$", text, re.M)
     assert headings[0].startswith("Quickstart"), headings[:3]
