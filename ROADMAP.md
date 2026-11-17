@@ -15,11 +15,11 @@ What's here now is a first batch. This is what is done, and what's planned next,
 - A project-state bootstrap script for standing up a new tracked project consistently
 - An export-cleanup script for migrating notes out of a legacy note-taking tool
 
-**The shelf (in progress).** The repo is becoming a Claude Code marketplace: each tool is a plugin under `plugins/`, listed in `.claude-plugin/marketplace.json`. Done so far: `plan-this` and `docs-readability-check` install from it. Next: the two pipelines, then the setup helper and the CI gates for new packages.
+**The shelf (in progress).** The repo is becoming a Claude Code marketplace: each tool is a plugin under `plugins/`, listed in `.claude-plugin/marketplace.json`. Done so far: `plan-this`, `docs-readability-check` and `docs-pipeline` install from it. Next: the job assessment pipeline, then the setup helper and the CI gates for new packages.
 
 **A fourth pattern doc: always-read-first / write-back state files.** A convention for keeping a piece of live state (a machine's current status, a project's current phase) trustworthy across many separate agent sessions touching it — read the state file before acting, write back immediately after any change, and enforce both halves with hooks rather than hoping the instruction gets followed every time.
 
-**Further development on the documentation pipeline.** The version in `pipelines/docs-pipeline/` is a generic export of the version I used, not the finished shape. Ongoing work on it will land here as it develops.
+**Further development on the documentation pipeline.** The version in `plugins/docs-pipeline/` is a generic export of the version I used, not the finished shape. Ongoing work on it will land here as it develops.
 
 **A handful of additional skills**, pending a lighter genericization pass:
 - An AI-writing-tell detector — scans prose for patterns that read as machine-written and proposes rewrites, backed by a pattern registry with a cited source per rule, dated retirements for tells that stopped working, a documented false-positive case per rule, and a scheduled refresh step that diffs several outside source authorities to keep the pattern list current. Two small genericization items: a hardcoded personal file path and a house-style config tuned to one person's preferences.

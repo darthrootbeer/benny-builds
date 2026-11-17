@@ -132,7 +132,7 @@ The event name (`PreToolUse`, `PostToolUse`) is the key, not a field inside the 
 
 ## Related
 
-- The same gate idea works for workflows, not just tool calls. The [docs pipeline](../pipelines/docs-pipeline/) stops between stages and waits for a human reply before moving on, which is a guard whose "marker" is the reply.
+- The same gate idea works for workflows, not just tool calls. The [docs pipeline](../plugins/docs-pipeline/) stops between stages and waits for a human reply before moving on, which is a guard whose "marker" is the reply.
 - [Rules-index architecture](rules-index-architecture.md): rule files can state what a hook enforces, so the prose and the enforcement stay linked.
 
 ## How this was checked

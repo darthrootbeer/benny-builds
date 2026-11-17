@@ -28,6 +28,6 @@ jobs:
             --exclude 'linkedin\.com'
             --exclude-path patterns/tests
             --exclude-path pipelines/job-assessment/tests
-            --exclude-path pipelines/docs-pipeline/tests
+            --exclude-path plugins/docs-pipeline/tests
             README.md ROADMAP.md './patterns/*.md' './pipelines/**/*.md' './skills/**/*.md'
           fail: true

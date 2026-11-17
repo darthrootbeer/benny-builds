@@ -1,0 +1,8 @@
+{
+  "name": "docs-pipeline",
+  "version": "0.1.0",
+  "description": "A chain of Claude Code skills that takes a documentation change from first request to publish, with a gate between every stage.",
+  "author": { "name": "Ben Goddard" },
+  "license": "MIT",
+  "dependencies": ["docs-readability-check"]
+}

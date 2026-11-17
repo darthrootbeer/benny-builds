@@ -125,7 +125,7 @@ At a handful of rules, an index plus five one-paragraph files is more indirectio
 ## Related
 
 - [Typed, size-bounded memory](typed-memory-system.md) applies the same idea to long-term memory instead of standing rules.
-- The [docs pipeline](../pipelines/docs-pipeline/) is a small instance of this layout: one style guide per concern in its `_knowledge/` folder, one README as the index.
+- The [docs pipeline](../plugins/docs-pipeline/) is a small instance of this layout: one style guide per concern in its `_knowledge/` folder, one README as the index.
 
 ## How this was checked
 

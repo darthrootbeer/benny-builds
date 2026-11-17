@@ -2,7 +2,7 @@
 
 **What it is.** A small system that reads a job posting against your own written criteria and gives a plain verdict: **Apply**, **Apply with reservations**, or **Skip**. A model reads the posting and writes down what it found, quoting the posting for every claim. Ordinary scripts then check those quotes, do the scoring and apply the verdict rules, so the same findings always give the same answer.
 
-It is the second example in this repo. The first, and the one to read first, is the documentation pipeline in [`../docs-pipeline/`](../docs-pipeline/). These docs follow that pipeline's style guides and its rule that every README and guide ends with a tested prompt. The skill files and stage files do not carry one.
+It is the second example in this repo. The first, and the one to read first, is the documentation pipeline in [`../../plugins/docs-pipeline/`](../../plugins/docs-pipeline/). These docs follow that pipeline's style guides and its rule that every README and guide ends with a tested prompt. The skill files and stage files do not carry one.
 
 **What you get.**
 

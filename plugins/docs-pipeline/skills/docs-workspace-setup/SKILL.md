@@ -22,7 +22,7 @@ The user provided: $ARGUMENTS
 
 ```
 WORKSPACE_ROOT=~/projects
-PIPELINE_DIR={YOUR_PIPELINE_DIR}
+PIPELINE_DIR=${CLAUDE_PLUGIN_ROOT}
 SHARED_CONFIG_DIR={SHARED_CONFIG_DIR}
 NOTES_DIR={NOTES_DIR}
 ```
@@ -30,7 +30,7 @@ NOTES_DIR={NOTES_DIR}
 - `WORKSPACE_ROOT` is the folder where workspaces are created. Change it if you want them somewhere else.
 - `PIPELINE_DIR` is the absolute path of the `docs-pipeline` folder that holds `_knowledge/` and `workspace-gitignore.template`. The install steps in `SETUP.md` fill it in for you.
 - `SHARED_CONFIG_DIR` and `NOTES_DIR` are optional. `SHARED_CONFIG_DIR` can point at a folder of your own shared tools and agent instructions. `NOTES_DIR` can point at a notes folder (for example an Obsidian vault) where a project note is written. If a value is empty or still reads `{SHARED_CONFIG_DIR}` or `{NOTES_DIR}`, treat it as unset and skip every step that needs it.
-- If `PIPELINE_DIR` still reads `{YOUR_PIPELINE_DIR}`, or `{PIPELINE_DIR}/_knowledge/` does not exist, stop: `"PIPELINE_DIR is not set. Set it to the docs-pipeline folder (see SETUP.md, Install)."`
+- If `PIPELINE_DIR` still reads `${CLAUDE_PLUGIN_ROOT}`, or `{PIPELINE_DIR}/_knowledge/` does not exist, stop: `"PIPELINE_DIR is not set. Set it to the docs-pipeline folder (see SETUP.md, Install)."`
 
 ---
 

@@ -133,7 +133,7 @@ A single-session tool with no saved state. It is solving index growth over month
 ## Related
 
 - [Rules-index architecture](rules-index-architecture.md) uses the same one-index-many-files idea for standing rules.
-- The [docs pipeline](../pipelines/docs-pipeline/) keeps a small bounded reference set of its own: a glossary and per-concern style guides in `_knowledge/`, read by each stage instead of re-explained each time.
+- The [docs pipeline](../plugins/docs-pipeline/) keeps a small bounded reference set of its own: a glossary and per-concern style guides in `_knowledge/`, read by each stage instead of re-explained each time.
 
 ## How this was checked
 

@@ -8,27 +8,38 @@
 
 Each skill is a markdown file that Claude Code loads when you run the matching `/skill-name` command.
 
+## Install
+
+In Claude Code:
+
+```text
+/plugin marketplace add darthrootbeer/context-engineering-toolkit
+/plugin install docs-pipeline@benny-builds
+```
+
+That is enough for the smoke test. To run it on your own docs, follow [SETUP.md](SETUP.md).
+
 ## Skills in this export
 
-| File | Slash command | Stage | What it does |
+| Skill folder | Slash command | Stage | What it does |
 |------|--------------|-------|--------------|
-| `docs-pipeline.md` | `/docs-pipeline` | Orchestrator | Runs the full pipeline end-to-end, stage by stage |
-| `docs-workspace-setup.md` | `/docs-workspace-setup` | 0 | Creates the workspace directory, copies in the knowledge files, and writes the starter files |
-| `docs-diataxis-audit.md` | `/docs-diataxis-audit` | 1 | Classifies doc content by Diataxis type, produces audit report + JSON mapping |
-| `docs-diataxis-split.md` | `/docs-diataxis-split` | 2 | Extracts content into typed output files (how-to, explanation, reference, tutorial) |
-| `docs-diataxis-create-overview.md` | `/docs-diataxis-create-overview` | 2b | Creates the overview/index entry-point doc after a split |
-| `docs-style-check-structure.md` | `/docs-style-check-structure` | 3a | Checks required sections, headings, and Diataxis structural rules |
-| `docs-style-check-voice.md` | `/docs-style-check-voice` | 3b | Applies general style guide voice, tone, list formatting, and terminology rules |
-| `docs-style-check-human.md` | `/docs-style-check-human` | 3c | Removes AI writing patterns (em dashes, filler phrases, uniform sentences) |
+| `skills/docs-pipeline/` | `/docs-pipeline` | Orchestrator | Runs the full pipeline end-to-end, stage by stage |
+| `skills/docs-workspace-setup/` | `/docs-workspace-setup` | 0 | Creates the workspace directory, copies in the knowledge files, and writes the starter files |
+| `skills/docs-diataxis-audit/` | `/docs-diataxis-audit` | 1 | Classifies doc content by Diataxis type, produces audit report + JSON mapping |
+| `skills/docs-diataxis-split/` | `/docs-diataxis-split` | 2 | Extracts content into typed output files (how-to, explanation, reference, tutorial) |
+| `skills/docs-diataxis-create-overview/` | `/docs-diataxis-create-overview` | 2b | Creates the overview/index entry-point doc after a split |
+| `skills/docs-style-check-structure/` | `/docs-style-check-structure` | 3a | Checks required sections, headings, and Diataxis structural rules |
+| `skills/docs-style-check-voice/` | `/docs-style-check-voice` | 3b | Applies general style guide voice, tone, list formatting, and terminology rules |
+| `skills/docs-style-check-human/` | `/docs-style-check-human` | 3c | Removes AI writing patterns (em dashes, filler phrases, uniform sentences) |
 | `../../plugins/docs-readability-check/skills/docs-readability-check/SKILL.md` | `/docs-readability-check` | 3d | Estimates reading grade level, finds dense sentence patterns, and rewrites them to the target level for the doc type |
-| `docs-grammar-spelling.md` | `/docs-grammar-spelling` | 3e | Grammar, spelling, and domain terminology check |
-| `docs-visuals-review.md` | `/docs-visuals-review` | 4a | Recommends diagrams and visual aids; Mermaid-first |
-| `docs-links-review.md` | `/docs-links-review` | 4b | Finds cross-link candidates against the full docs corpus |
-| `docs-sme-review.md` | `/docs-sme-review` | 4c | Domain accuracy, reader journey, naming collisions, technical clarity |
-| `docs-changes-list.md` | `/docs-changes-list` | 4d | Generates `editorial-changes.md` summarising everything done |
-| `docs-decision-checkpoint.md` | `/docs-decision-checkpoint` | 5 | Walks through every open recommendation: apply / skip / defer |
-| `docs-publish.md` | `/docs-publish` | 6 | Copies output to docs repo, adds frontmatter, creates branch + PR |
-| `docs-work-verify.md` | `/docs-work-verify` | Post | Verifies the PR merged and changes are live |
+| `skills/docs-grammar-spelling/` | `/docs-grammar-spelling` | 3e | Grammar, spelling, and domain terminology check |
+| `skills/docs-visuals-review/` | `/docs-visuals-review` | 4a | Recommends diagrams and visual aids; Mermaid-first |
+| `skills/docs-links-review/` | `/docs-links-review` | 4b | Finds cross-link candidates against the full docs corpus |
+| `skills/docs-sme-review/` | `/docs-sme-review` | 4c | Domain accuracy, reader journey, naming collisions, technical clarity |
+| `skills/docs-changes-list/` | `/docs-changes-list` | 4d | Generates `editorial-changes.md` summarising everything done |
+| `skills/docs-decision-checkpoint/` | `/docs-decision-checkpoint` | 5 | Walks through every open recommendation: apply / skip / defer |
+| `skills/docs-publish/` | `/docs-publish` | 6 | Copies output to docs repo, adds frontmatter, creates branch + PR |
+| `skills/docs-work-verify/` | `/docs-work-verify` | Post | Verifies the PR merged and changes are live |
 
 ## Quick start
 
@@ -87,7 +98,7 @@ Before using this pipeline on your docs, replace these placeholders throughout t
 | `{YOUR_DOCS_REPO_PATH}` | Local filesystem path to your docs repo clone |
 | `{YOUR_DEFAULT_OG_IMAGE_URL}` | Default Open Graph image URL for published docs |
 
-Two placeholders are optional. `{SHARED_CONFIG_DIR}` (a folder of your own shared tools) and `{NOTES_DIR}` (a notes folder for a project note) can stay as they are: any step that needs them is skipped. `{YOUR_PIPELINE_DIR}` is filled in by the install loop in SETUP.md, so you do not set it by hand.
+Two placeholders are optional. `{SHARED_CONFIG_DIR}` (a folder of your own shared tools) and `{NOTES_DIR}` (a notes folder for a project note) can stay as they are: any step that needs them is skipped. The plugin folder path is filled in for you, so you do not set it by hand.
 
 ---
 
