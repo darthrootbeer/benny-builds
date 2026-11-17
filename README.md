@@ -1,6 +1,6 @@
-# Context Engineering Toolkit
+# Benny Builds
 
-[![ci](https://github.com/darthrootbeer/context-engineering-toolkit/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/darthrootbeer/context-engineering-toolkit/actions/workflows/ci.yml)
+[![ci](https://github.com/darthrootbeer/benny-builds/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/darthrootbeer/benny-builds/actions/workflows/ci.yml)
 
 Skills, pipelines, and technique write-ups for building AI-agent systems that stay correct as they scale — built by using Claude Code every day, not by reading about it.
 

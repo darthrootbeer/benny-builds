@@ -41,7 +41,7 @@ Plan saved: plan-NNN — [title]
 From the shelf, in Claude Code:
 
 ```text
-/plugin marketplace add darthrootbeer/context-engineering-toolkit
+/plugin marketplace add darthrootbeer/benny-builds
 /plugin install plan-this@benny-builds
 ```
 
