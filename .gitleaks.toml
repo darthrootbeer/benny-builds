@@ -4,7 +4,7 @@
 # page. Neither is a credential.
 # Matching on the placeholder text (not a commit hash) keeps it working
 # after squash merges, which create new commit hashes.
-title = "context-engineering-toolkit"
+title = "benny-builds"
 
 [extend]
 useDefault = true

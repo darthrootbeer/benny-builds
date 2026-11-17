@@ -31,7 +31,7 @@ A report in `_process/style-audit/` named `readability-audit-{folder-name}.md`, 
 From the shelf, in Claude Code:
 
 ```text
-/plugin marketplace add darthrootbeer/context-engineering-toolkit
+/plugin marketplace add darthrootbeer/benny-builds
 /plugin install docs-readability-check@benny-builds
 ```
 

@@ -62,7 +62,7 @@ There are two ways in. Pick the one that matches what you want to do.
 **A. Try it (smoke test, no placeholders).** Install it as a plugin. In Claude Code:
 
 ```text
-/plugin marketplace add darthrootbeer/context-engineering-toolkit
+/plugin marketplace add darthrootbeer/benny-builds
 /plugin install docs-pipeline@benny-builds
 ```
 

@@ -13,7 +13,7 @@ Each skill is a markdown file that Claude Code loads when you run the matching `
 In Claude Code:
 
 ```text
-/plugin marketplace add darthrootbeer/context-engineering-toolkit
+/plugin marketplace add darthrootbeer/benny-builds
 /plugin install docs-pipeline@benny-builds
 ```
 
