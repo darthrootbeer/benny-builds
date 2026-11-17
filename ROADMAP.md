@@ -15,7 +15,7 @@ What's here now is a first batch. This is what is done, and what's planned next,
 - A project-state bootstrap script for standing up a new tracked project consistently
 - An export-cleanup script for migrating notes out of a legacy note-taking tool
 
-**The shelf (in progress).** The repo is becoming a Claude Code marketplace: each tool is a plugin under `plugins/`, listed in `.claude-plugin/marketplace.json`. Done so far: `plan-this`, `docs-readability-check` and `docs-pipeline` install from it. Next: the job assessment pipeline, then the setup helper and the CI gates for new packages.
+**The shelf (in progress).** The repo is becoming a Claude Code marketplace: each tool is a plugin under `plugins/`, listed in `.claude-plugin/marketplace.json`. Done so far: `plan-this`, `docs-readability-check` and `docs-pipeline` install from it. The CI now also checks every change against a private banned-names list (kept out of this repo), checks who wrote each commit, and validates every plugin manifest. Next: the setup helper and the self-building catalog. The job assessment pipeline stays where it is for now.
 
 **A fourth pattern doc: always-read-first / write-back state files.** A convention for keeping a piece of live state (a machine's current status, a project's current phase) trustworthy across many separate agent sessions touching it — read the state file before acting, write back immediately after any change, and enforce both halves with hooks rather than hoping the instruction gets followed every time.
 

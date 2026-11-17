@@ -10,6 +10,13 @@ ignore_files:            # files that hold the patterns themselves
   - .github/safety-patterns.yaml
   - .github/scripts/safety_scan.py
 
+allowed_authors:         # public commit names; anyone else blocks the pull request
+  - Ben Goddard
+  - darthrootbeer
+
+known_history:           # early commits with banned names, left in place on purpose (decided 2026-11-14); new ones still fail
+  - 6d59eeb1c1f1
+
 ticket_allowlist:        # look like ticket ids, are not
   - SHA-256
   - SHA-512

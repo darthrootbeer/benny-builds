@@ -10,10 +10,18 @@ cannot leak the thing it found into a CI log.
     safety_scan.py --range origin/main..HEAD   scan only lines added in that range
     safety_scan.py --history             scan lines added by every commit, all branches
 
+Private banned names: the scan also reads a list of words from the
+TOOLKIT_BANNED_TERMS environment variable (CI secret) or from the file named
+by --banned-file or ~/.config/toolkit-banned-terms.txt, one term per line.
+The list never lives in this repo. A match prints file and line only.
+
+    safety_scan.py --authors origin/main..HEAD   check who wrote each commit
+
 Exit codes: 0 clean, 1 hits found, 2 could not run.
 """
 import argparse
 import fnmatch
+import os
 import json
 import re
 import subprocess
@@ -46,6 +54,14 @@ def load_rules():
     return cfg
 
 
+def load_banned_terms(path=None):
+    raw = os.environ.get("TOOLKIT_BANNED_TERMS", "")
+    if not raw:
+        f = Path(path or os.environ.get("TOOLKIT_BANNED_FILE", "") or Path.home() / ".config" / "toolkit-banned-terms.txt")
+        raw = f.read_text() if f.is_file() else ""
+    return [t.strip() for t in raw.splitlines() if t.strip() and not t.lstrip().startswith("#")]
+
+
 def in_scope(path, scope):
     return not scope or any(fnmatch.fnmatch(path, g) for g in scope)
 
@@ -66,6 +82,13 @@ class Scanner:
                 rr["_allow"] = re.compile(r["allow_regex"]) if r.get("allow_regex") else None
                 self.line_rules.append(rr)
         self.hits = []
+        self.known_history = set(cfg.get("known_history", []))
+        terms = load_banned_terms()
+        if terms:
+            pat = r"(?<![A-Za-z0-9])(" + "|".join(re.escape(t) for t in terms) + r")(?![A-Za-z0-9])"
+            self.line_rules.append({"id": "banned-term", "_re": re.compile(pat, re.I), "_allow": None,
+                                    "message": "name on the private banned list", "secret": True})
+        self.banned_loaded = bool(terms)
 
     def scan_line(self, path, lineno, text, where=""):
         if path in self.ignore:
@@ -77,6 +100,8 @@ class Scanner:
                 continue
             for m in r["_re"].finditer(text):
                 if r["_allow"] and r["_allow"].search(m.group(0)):
+                    continue
+                if r["id"] == "banned-term" and where in self.known_history:
                     continue
                 self.hits.append((path, lineno, r["id"], r["message"], where))
                 break  # one hit per rule per line is enough
@@ -145,19 +170,45 @@ def scan_history(sc):
     scan_diff_text(sc, diff, where_from_commit=True)
 
 
+def check_authors(cfg, rng):
+    allowed = set(cfg.get("allowed_authors", []))
+    bad = []
+    for line in git("log", "--format=%H%x09%an", rng).splitlines():
+        sha, _, name = line.partition("\t")
+        if name not in allowed:
+            bad.append(sha[:12])
+    for sha in bad:
+        print(f"commit {sha}: [authorship] author is not on the allowed list")
+    if bad:
+        print(f"safety_scan: {len(bad)} commit(s) by an author not on the allowed list")
+        return 1
+    print(f"safety_scan: authorship clean ({rng})")
+    return 0
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     g = ap.add_mutually_exclusive_group()
     g.add_argument("--tree", action="store_true", help="scan every tracked file (default)")
     g.add_argument("--range", metavar="A..B", help="scan lines added in a git range")
     g.add_argument("--history", action="store_true", help="scan lines added in all history")
+    ap.add_argument("--authors", metavar="A..B", help="check commit authors in a git range, then exit")
+    ap.add_argument("--require-banned", action="store_true", help="fail (exit 2) if no private banned-terms list is found")
+    ap.add_argument("--banned-file", metavar="FILE", help="private banned-terms file (default ~/.config/toolkit-banned-terms.txt)")
     ap.add_argument("--json", action="store_true", help="print hits as JSON")
     args = ap.parse_args()
 
     root = git("rev-parse", "--show-toplevel").strip()
-    import os
     os.chdir(root)
-    sc = Scanner(load_rules())
+    if args.banned_file:
+        os.environ["TOOLKIT_BANNED_FILE"] = args.banned_file
+    cfg = load_rules()
+    if args.authors:
+        return check_authors(cfg, args.authors)
+    sc = Scanner(cfg)
+    if args.require_banned and not sc.banned_loaded:
+        print("safety_scan: the private banned-terms list is missing, so this run cannot vouch for banned names", file=sys.stderr)
+        return 2
     if args.range:
         scan_range(sc, args.range)
         mode = f"range {args.range}"
@@ -173,6 +224,8 @@ def main():
     for path, lineno, rid, msg, where in sorted(set(sc.hits)):
         suffix = f" (commit {where})" if where else ""
         print(f"{path}:{lineno}: [{rid}] {msg}{suffix}")
+    if not sc.banned_loaded:
+        print("safety_scan: note: no private banned-terms list found, so banned names were not checked")
     if sc.hits:
         print(f"safety_scan: {len(set(sc.hits))} hit(s) in {mode}")
         return 1

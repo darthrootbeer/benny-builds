@@ -24,15 +24,24 @@ jobs:
           python-version: '3.12'
       - run: pip install pyyaml
       - name: Scan the whole tree
-        run: python3 .github/scripts/safety_scan.py --tree
+        env:
+          TOOLKIT_BANNED_TERMS: ${{ secrets.TOOLKIT_BANNED_TERMS }}
+        run: python3 .github/scripts/safety_scan.py --tree ${{ github.event.pull_request.head.repo.fork != true && '--require-banned' || '' }}
       - name: Scan the lines this pull request adds
         if: github.event_name == 'pull_request'
+        env:
+          TOOLKIT_BANNED_TERMS: ${{ secrets.TOOLKIT_BANNED_TERMS }}
         run: |
           git fetch --no-tags origin "${{ github.base_ref }}"
           python3 .github/scripts/safety_scan.py --range "origin/${{ github.base_ref }}...HEAD"
+      - name: Check who wrote each commit
+        if: github.event_name == 'pull_request'
+        run: python3 .github/scripts/safety_scan.py --authors "origin/${{ github.base_ref }}..HEAD"
       - name: Scan the full history
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-        run: python3 .github/scripts/safety_scan.py --history
+        env:
+          TOOLKIT_BANNED_TERMS: ${{ secrets.TOOLKIT_BANNED_TERMS }}
+        run: python3 .github/scripts/safety_scan.py --history --require-banned
       - name: Scan for committed secrets
         uses: gitleaks/gitleaks-action@v3
         env:
@@ -51,6 +60,18 @@ jobs:
         run: python3 plugins/docs-pipeline/tests/check_pipeline.py
       - name: Code examples in the Markdown docs parse
         run: python3 .github/scripts/check_examples.py
+
+  plugins:
+    name: plugin manifests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - run: npm install -g @anthropic-ai/claude-code
+      - name: Validate the marketplace and every plugin
+        run: claude plugin validate . --strict
 
   tests:
     name: tests (${{ matrix.os }}, python ${{ matrix.python }})
